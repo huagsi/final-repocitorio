@@ -24,17 +24,12 @@ export class PostgresConnection {
     }
 
     connect() {
-        return PostgresConnection.connection.connect((err, client) => {
-            if (err) {
-                console.log(err);
-                
-                throw new Error("BAD CONNECTION POSTGRES");
-            }
-            this.client = client;
-        })
+        return PostgresConnection.connection.connect().then((response)=>{
+            this.client = response;
+        });   
     }
 
-    execute(sql: string, values: string[] = []) {
+    execute(sql: string, values: any[] = []) {        
         return this.client.query({
             text: sql,
             values
