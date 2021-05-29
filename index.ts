@@ -1,6 +1,11 @@
-const express = require('express')
-const usersRouter = require('./users/controller/UsersController');
-const jwt = require('jsonwebtoken');
+import express from 'express'
+import usersRouter from './users/controller/UsersController'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv';
+
+dotenv.config()
+
+console.log(process.env.DB_NAME)
 
 const app = express()
 const port = 8080;
@@ -28,7 +33,7 @@ app.use((request, response, next) => {
         return;
     }
     try {
-        const decoded = jwt.verify(token, 'SECRET_KEY'); //JWT
+        const decoded = jwt.verify(String(token), 'SECRET_KEY'); //JWT
         next()
     } catch (e) {
         response.status(400).send({ message: 'PROHIBIDO' })

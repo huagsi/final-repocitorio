@@ -1,4 +1,4 @@
-const express = require('express')
+import express from 'express'
 const usersRouter = express.Router()
 
 usersRouter.get('/users', (request, response) => {
@@ -21,4 +21,5 @@ usersRouter.get('/users/:id', (request, response) => {
     response.send(`Buscaré ${request.params.id}`)
 })
 
-module.exports =[usersRouter]
+//module.exports =[usersRouter]
+export default usersRouter;
