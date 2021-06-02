@@ -5,6 +5,8 @@ import { PostgresConnection } from './shared/repository/Connections';
 import dotenv from 'dotenv';
 import { usersMongoRouter } from './users/controller/UsersMongoController';
 import { MongoConnection } from './shared/repository/MongoConnection';
+import { proveedoresRouter } from './proveedores/controller/ProveedoresController';
+import { comprasRouter } from './compras/controller/ComprasController';
 
 dotenv.config();
 
@@ -50,6 +52,8 @@ async function main() {
     
     app.use(usersRouter);
     app.use(usersMongoRouter);
+    app.use(proveedoresRouter);
+    app.use(comprasRouter);
     
     app.get('',
         (request, response) => {
