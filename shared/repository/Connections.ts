@@ -36,7 +36,7 @@ export class PostgresConnection {
         })
     }
 
-    execute(sql: string, values: string[] = []) {
+    execute(sql: string, values: any[] = []) {
         return this.client.query({
             text: sql,
             values
