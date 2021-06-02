@@ -12,7 +12,7 @@ export class UserRepository implements IUserRepository {
     }
 
     save(user: User): Promise<User> {
-        return this.pgConnection.execute('INSERT INTO users(name, username, password) VALUES ($1,$2,$3) RETURNING *', [user.name, user.userName, user.password]).then(
+        return this.pgConnection.execute('INSERT INTO users_humberto(name, username, password) VALUES ($1,$2,$3) RETURNING *', [user.name, user.userName, user.password]).then(
             (res) => {
                 const { id, name, username } = res.rows[0];
                 return new User(name, username, '', id);
@@ -21,17 +21,17 @@ export class UserRepository implements IUserRepository {
     }
 
     delete(id: any): Promise<void> {
-        return this.pgConnection.execute('DELETE FROM users WHERE id = $1', [id]).then(() => { });
+        return this.pgConnection.execute('DELETE FROM users_humberto WHERE id = $1', [id]).then(() => { });
     }
     update(user: User, id: any): Promise<User> {
-        return this.pgConnection.execute('UPDATE users SET name=$1, username=$2  WHERE id = $3', [user.name, user.userName, id]).then((result) => {
+        return this.pgConnection.execute('UPDATE users_humberto SET name=$1, username=$2  WHERE id = $3', [user.name, user.userName, id]).then((result) => {
             user.id = id;
             return user;
         });
     }
 
     getAll(): Promise<User[]> {
-        return this.pgConnection.execute('SELECT * FROM users').then(
+        return this.pgConnection.execute('SELECT * FROM users_humberto').then(
             (res) => {
                 const rows = res.rows;
                 return rows.map(row => {
@@ -42,7 +42,7 @@ export class UserRepository implements IUserRepository {
         );
     }
     getById(id: any): Promise<User> {
-        return this.pgConnection.execute('SELECT * FROM users WHERE id = $1 LIMIT 1', [id]).then(
+        return this.pgConnection.execute('SELECT * FROM users_humberto WHERE id = $1 LIMIT 1', [id]).then(
             (res) => {
                 const { id, name, username } = res.rows[0];
                 return new User(name, username, '', id);
